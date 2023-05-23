@@ -46,6 +46,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView name=view.findViewById(R.id.name);
         TextView address=view.findViewById(R.id.address);
         TextView phone=view.findViewById(R.id.phone);
+
         id.setText(""+mydata.get(i).getId());
         name.setText(mydata.get(i).getName());
         address.setText(mydata.get(i).getAddress());
@@ -67,12 +68,24 @@ public class CustomAdapter extends BaseAdapter {
                 EditText ephone = view1.findViewById(R.id.edit_phone);
                 Button edit = view1.findViewById(R.id.btnedit);
                 Button delete = view1.findViewById(R.id.btndelete);
-
+                ename.setText(mydata.get(i).getName());
+                eaddress.setText(mydata.get(i).getAddress());
+                ephone.setText(mydata.get(i).getPhone());
+                
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        StudentModel  sm = new StudentModel();
+                        sm.setId(mydata.get(i).getId());
+                        sm.setName(ename.getText().toString());
+                        sm.setAddress(eaddress.getText().toString());
+                        sm.setPhone(ephone.getText().toString());
+                        DatabaseHelper db = new DatabaseHelper(context);
+                        db.updatedata(sm);
+                        ad.dismiss();
+                        ViewActivity va = (ViewActivity)  context;
+                        va.recreate();
                     }
                 });
                 delete.setOnClickListener(new View.OnClickListener() {

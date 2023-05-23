@@ -62,5 +62,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      db.execSQL("delete from studenttable where id="+id);
 
     }
+
+    public void updatedata(StudentModel sm) {
+        int id = sm.getId();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name",sm.getName());
+        cv.put("address",sm.getAddress());
+        cv.put("phone",sm.getPhone());
+        db.update("studenttable",cv,"id="+id,null);
+    }
 }
 
